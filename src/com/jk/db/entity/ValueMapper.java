@@ -27,7 +27,7 @@ public class ValueMapper {
     public String toDataInfo() {
         StringBuffer sb = new StringBuffer();
         map.forEach((key, value)->{
-            sb.append( value.getIdx() + " " + key + " " + value.getValue() + " ");
+            sb.append( value.getIdx() + " " + key + " " + value.getValue() + " " + value.getType() + " ");
         });
         return sb.toString();
     }
