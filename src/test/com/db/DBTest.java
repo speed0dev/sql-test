@@ -26,7 +26,7 @@ public class DBTest {
 
     }
 
-    //
+    // Member 데이터 가져오기
     @Test
     void sqlTest(){
         try {
@@ -42,7 +42,6 @@ public class DBTest {
             System.out.println(" size:" + r.size());
 
             new MapperAnalizer(r).anlysis();
-
 
 
         }catch (Exception e){

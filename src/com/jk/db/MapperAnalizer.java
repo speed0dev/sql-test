@@ -12,9 +12,12 @@ public class MapperAnalizer {
         rList = r;
     }
 
+    //
     public void anlysis() {
+
         for(ValueMapper m: rList){
             System.out.println(m.toDataInfo()); //
         }
+        //
     }
 }

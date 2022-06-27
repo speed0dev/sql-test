@@ -1,10 +1,14 @@
 package jk.db.entity;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ValueMapper {
-    private Map<String,ValueItem> map = new HashMap<>();
+    //저장순서 보장
+    private Map<String,ValueItem> map = new LinkedHashMap<>();
+
+    //private Map<String,ValueItem> map = new HashMap<>();
 
     public ValueMapper(){
 
@@ -27,7 +31,7 @@ public class ValueMapper {
     public String toDataInfo() {
         StringBuffer sb = new StringBuffer();
         map.forEach((key, value)->{
-            sb.append( value.getIdx() + " " + key + " " + value.getValue() + " " + value.getType() + " ");
+            sb.append( "{idx:" + value.getIdx() + " key:" + key + " value:" + value.getValue() + " type:" + value.getType() + "}");
         });
         return sb.toString();
     }
