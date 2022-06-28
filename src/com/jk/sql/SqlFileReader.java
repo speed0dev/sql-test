@@ -17,8 +17,10 @@ public class SqlFileReader {
     }
 
     private void onInit() {
-        //
+
         // functional 로 변경할것.
+        //Function<String,File> fFileRead = this::fileRead;
+        //Function<File,SqlFileResult> fReadSqlLines = this::readSqlLines;
 
 
     }
@@ -98,14 +100,14 @@ public class SqlFileReader {
         return paramList;
     }
 
-    private File fileRead(String fileName) throws Exception{
+    //
+    private File fileRead(String fileName){
         File f = new File(fileName);
         if(!f.exists()){
-            throw new Exception("file not found!");
+            //throw new Exception("file not found!");
+
         }
-
         return f;
-
     }
 
     private SqlFileResult readSqlLines(File f) throws Exception{
