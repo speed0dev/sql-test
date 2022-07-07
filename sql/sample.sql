@@ -15,3 +15,18 @@ SELECT * FROM (
     )
     
     ;
+
+
+[]
+  SELECT 
+        -- c.*, 
+         t.COLUMN_NAME
+        , t.DATA_TYPE
+        , c.COMMENTS
+    FROM  user_col_comments c , all_tab_columns t
+    where 1=1
+    AND c.table_name = t.table_name
+    AND c.column_name = t.COLUMN_NAME
+    AND c.table_name='TB_SAMPLE'
+    
+  ;
