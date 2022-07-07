@@ -44,5 +44,63 @@ public class DBConnection {
 }
 
 
-// header  정보 가져오기
 
+ private SqlFileResult readSqlLines(File f) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), "UTF-8"));
+        String line = "";
+        try {
+            String queryLine = "";
+            String paramLine = "";
+            while ((line = br.readLine()) != null) {
+                //System.out.println(line);
+                if(line.contains("Preparing:")){
+                    String[] tmp = line.split("Preparing:");
+                    queryLine = tmp[1];
+                }else if(line.contains("Parameters:")){
+                    String[] tmp = line.split("Parameters:");
+                    paramLine = tmp[1];
+                }
+            }
+            SqlFileResult result = new SqlFileResult(queryLine, paramLine);
+            return result;
+        }finally {
+            if(br!=null) {
+                br.close();
+            }
+        }
+
+
+
+		public void setParam(PreparedStatement ps) throws SQLException {
+        //
+        ValueItem item = null;
+        for(int i=0;i<paramList.size();i++){
+            item = paramList.get(i);
+            if("string".equals(item.getType())){
+                ps.setString(i, (String)item.getValue());
+            }else if("int".equals(item.getType())){
+                ps.setInt(i, (int)item.getValue());
+            }else if("long".equals(item.getType())){
+                ps.setLong(i, (long)item.getValue());
+            }else if("double".equals(item.getType())){
+                ps.setDouble(i, (double)item.getValue());
+            }else if("float".equals(item.getType())){
+                ps.setFloat(i, (float)item.getValue());
+            }else if("time".equals(item.getType())){
+                ps.setTime(i, (Time)item.getValue());
+            }
+        }
+    }
+
+    public List<String> callHeader(ResultSetMetaData md) throws SQLException {
+        List<String> calNameList = new ArrayList<>();
+        if(md!=null) {
+
+            for (int i = 1; i <= md.getColumnCount(); i++) {
+                metaList.add(new MetaItem(i, md.getColumnName(i), md.getColumnTypeName(i)));
+                calNameList.add(md.getColumnName(i));
+            }
+        }
+        return calNameList;
+    }
+    
