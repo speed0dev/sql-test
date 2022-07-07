@@ -1,0 +1,48 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class DBConnection {
+
+	private Connection con;
+	private ResultSet rs;
+	private PreparedStatement pstmt;
+
+	public DBConnection() {
+		try {
+			//url 수정했습니다.
+			String url = "jdbc:mysql://localhost/coffee?characterEncoding=UTF-8&serverTimezone=UTC";
+			String user = "root";
+			String passwd = "1234";
+
+			con = DriverManager.getConnection(url, user, passwd);
+			System.out.println("DB연결 성공");
+			
+			pstmt = con.prepareStatement("select * from Example");
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				System.out.println(rs.getInt(1) + "\t" + rs.getString(2));
+			}
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("DB연결 실패하거나, SQL문이 틀렸습니다.");
+			System.out.print("사유 : " + e.getMessage());
+		}
+	}
+
+	public static void main(String[] args) {
+		new DBConnection();
+	}
+
+}
+
+
+// header  정보 가져오기
+
